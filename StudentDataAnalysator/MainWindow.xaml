@@ -1,0 +1,108 @@
+﻿<Window x:Class="StudentDataAnalysator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudentDataAnalysator"
+        xmlns:controls="clr-namespace:StudentDataAnalysator.UserControls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <DataTemplate x:Key="FrequencyDistributionViewTemplate" DataType="{x:Type local:MainViewModel}">
+            <controls:FrequencyDistributionView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="MeasuresCentralTrendViewTemplate" DataType="{x:Type local:MainViewModel}">
+            <controls:MeasuresCentralTrendView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="DistractionMeasuresViewTemplate" DataType="{x:Type local:MainViewModel}">
+            <controls:DistractionMeasuresView />
+        </DataTemplate>
+
+        <DataTemplate x:Key="CorrelationAnalysisViewTemplate" DataType="{x:Type local:MainViewModel}">
+            <controls:CorrelationAnalysisView />
+        </DataTemplate>
+    </Window.Resources>
+
+
+    <Grid ShowGridLines="False" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Row="0"
+                Grid.Column="0"
+                Command="{Binding OpenFrequencyViewCommand}">
+            <TextBlock Text="Честотно разпределение" 
+                       TextWrapping="Wrap" 
+                       TextAlignment="Center"
+                       FontSize="16"
+                       />
+        </Button>
+
+        <Button Grid.Row="0"
+                Grid.Column="1"
+                Command="{Binding OpenMeasursCentralTrendViewCommand}">
+            <TextBlock Text="Мерки на централната тенденция" 
+                       TextWrapping="Wrap" 
+                       TextAlignment="Center"
+                       FontSize="16"/>
+        </Button>
+
+        <Button Grid.Row="0"
+                Grid.Column="2"
+                Command="{Binding OpenDistractionMeasuresViewCommand}">
+            <TextBlock Text="Мерки на разсейване" 
+                       TextWrapping="Wrap" 
+                       TextAlignment="Center"
+                       FontSize="16"/>
+        </Button>
+
+        <Button Grid.Row="0"
+                Grid.Column="3"
+                Command="{Binding OpenCorrelationAnalysisViewViewCommand}">
+            <TextBlock Text="Корелационен анализ" 
+                       TextWrapping="Wrap" 
+                       TextAlignment="Center"
+                       FontSize="16"/>
+        </Button>
+
+        <ContentControl Grid.Row="1"
+                        Grid.ColumnSpan="4"
+            Content="{Binding }">
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SwitchView}" Value="0">
+                            <Setter Property="ContentTemplate" Value="{StaticResource FrequencyDistributionViewTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SwitchView}" Value="1">
+                            <Setter Property="ContentTemplate" Value="{StaticResource MeasuresCentralTrendViewTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SwitchView}" Value="2">
+                            <Setter Property="ContentTemplate" Value="{StaticResource DistractionMeasuresViewTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SwitchView}" Value="3">
+                            <Setter Property="ContentTemplate" Value="{StaticResource CorrelationAnalysisViewTemplate}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+
+    </Grid>
+</Window>
