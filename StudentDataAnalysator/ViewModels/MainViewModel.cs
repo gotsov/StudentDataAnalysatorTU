@@ -1,4 +1,5 @@
 ﻿using StudentDataAnalysator.Commands;
+using StudentDataAnalysator.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ using System.Windows.Input;
 
 namespace StudentDataAnalysator
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : BaseViewModel
     {
         private int switchView;
 
@@ -88,15 +89,6 @@ namespace StudentDataAnalysator
         public void ChangeSwitchView(int viewNum)
         {
             SwitchView = viewNum;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
         }
     }
 }
