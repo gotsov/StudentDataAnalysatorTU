@@ -1,4 +1,5 @@
-﻿using StudentDataAnalysator.Commands;
+﻿using Microsoft.Win32;
+using StudentDataAnalysator.Commands;
 using StudentDataAnalysator.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,9 @@ namespace StudentDataAnalysator
         private RelayCommand _openMeasursCentralTrendViewCommand;
         private RelayCommand _openDistractionMeasuresViewCommand;
         private RelayCommand _openCorrelationAnalysisViewViewCommand;
+        private RelayCommand _searchFileCommand;
+        private string _selectedPath;
+
 
         public MainViewModel()
         {
@@ -75,6 +79,33 @@ namespace StudentDataAnalysator
                 return _openCorrelationAnalysisViewViewCommand;
             }
         }
+        public RelayCommand SearchFileCommand
+        {
+            get
+            {
+                if (_searchFileCommand == null)
+                {
+                    _searchFileCommand = new RelayCommand(param => this.ExecuteOpenFileDialog(),
+                        param => true);
+                }
+                return _searchFileCommand;
+            }
+        }
+        
+        public string SelectedPath
+        {
+            get
+            {   
+                return _selectedPath;
+            }
+            set
+            {
+                _selectedPath = value;
+                OnPropertyChanged("SelectedPath");
+            }
+        }
+
+
 
         public int SwitchView
         {
@@ -90,5 +121,13 @@ namespace StudentDataAnalysator
         {
             SwitchView = viewNum;
         }
+
+        private void ExecuteOpenFileDialog()
+        {
+            var dialog = new OpenFileDialog();
+            dialog.ShowDialog();
+            SelectedPath = dialog.FileName;
+        }
+
     }
 }

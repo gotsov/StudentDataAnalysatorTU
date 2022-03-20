@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="EO.WebBrowser" Version="22.0.40" />
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
   </ItemGroup>
 
 </Project>

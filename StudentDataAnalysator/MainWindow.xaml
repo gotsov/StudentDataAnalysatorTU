@@ -35,6 +35,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="*"/>
             <RowDefinition Height="6*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -43,8 +44,27 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
+        
         <Button Grid.Row="0"
+                Grid.Column="0"
+                Command="{Binding SearchFileCommand}">
+            <TextBlock Text="Отвори Файл" 
+                       TextWrapping="Wrap" 
+                       TextAlignment="Center"
+                       FontSize="16"/>
+        </Button>
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column ="1"
+                   Grid.ColumnSpan="3"
+                   TextAlignment="Center"
+                   FontSize="20"
+                   TextWrapping="Wrap"
+                   VerticalAlignment="Center"
+                Text="{Binding SelectedPath}">
+        </TextBlock>
+
+        <Button Grid.Row="1"
                 Grid.Column="0"
                 Command="{Binding OpenFrequencyViewCommand}">
             <TextBlock Text="Честотно разпределение" 
@@ -54,7 +74,7 @@
                        />
         </Button>
 
-        <Button Grid.Row="0"
+        <Button Grid.Row="1"
                 Grid.Column="1"
                 Command="{Binding OpenMeasursCentralTrendViewCommand}">
             <TextBlock Text="Мерки на централната тенденция" 
@@ -63,7 +83,7 @@
                        FontSize="16"/>
         </Button>
 
-        <Button Grid.Row="0"
+        <Button Grid.Row="1"
                 Grid.Column="2"
                 Command="{Binding OpenDistractionMeasuresViewCommand}">
             <TextBlock Text="Мерки на разсейване" 
@@ -72,7 +92,7 @@
                        FontSize="16"/>
         </Button>
 
-        <Button Grid.Row="0"
+        <Button Grid.Row="1"
                 Grid.Column="3"
                 Command="{Binding OpenCorrelationAnalysisViewViewCommand}">
             <TextBlock Text="Корелационен анализ" 
@@ -81,7 +101,8 @@
                        FontSize="16"/>
         </Button>
 
-        <ContentControl Grid.Row="1"
+
+        <ContentControl Grid.Row="2"
                         Grid.ColumnSpan="4"
             Content="{Binding }">
             <ContentControl.Style>
