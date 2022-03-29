@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="EO.WebBrowser" Version="22.0.40" />
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
   </ItemGroup>
 
 </Project>

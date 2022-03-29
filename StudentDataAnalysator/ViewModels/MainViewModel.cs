@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using StudentDataAnalysator.Commands;
 using StudentDataAnalysator.ViewModels;
+using StudentDataAnalysator.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows;
 
 namespace StudentDataAnalysator
 {
@@ -22,6 +24,7 @@ namespace StudentDataAnalysator
         private RelayCommand _openCorrelationAnalysisViewViewCommand;
         private RelayCommand _searchFileCommand;
         private string _selectedPath;
+        private ExcelFileLoaderService _excelDataReader;
 
 
         public MainViewModel()
@@ -101,7 +104,19 @@ namespace StudentDataAnalysator
             set
             {
                 _selectedPath = value;
-                OnPropertyChanged("SelectedPath");
+
+                _excelDataReader = new ExcelFileLoaderService();
+
+                if (_excelDataReader.IsFileExcel(SelectedPath))
+                {
+                    _excelDataReader = new ExcelFileLoaderService(SelectedPath);
+                    OnPropertyChanged("SelectedPath");
+                }
+                else
+                {
+                    MessageBox.Show("Invalid file. File must be excel");
+                }
+                
             }
         }
 
