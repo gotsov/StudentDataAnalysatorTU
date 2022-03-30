@@ -22,7 +22,5 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-
-        <TextBlock Text="{Binding TestText}"></TextBlock>
     </Grid>
 </UserControl>

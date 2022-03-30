@@ -10,7 +10,7 @@ namespace StudentDataAnalysator.ViewModels
     {
         public FrequencyDistributionViewModel()
         {
-            
+
         }
     }
 }

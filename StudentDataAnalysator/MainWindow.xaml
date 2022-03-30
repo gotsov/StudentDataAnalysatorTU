@@ -101,10 +101,20 @@
                        FontSize="16"/>
         </Button>
 
+        <DataGrid 
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding StudentsList}"
+            FontSize="20"
+            Margin="10,10,10,10">
+
+        </DataGrid>
 
         <ContentControl Grid.Row="2"
-                        Grid.ColumnSpan="4"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="2"
             Content="{Binding }">
+            
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
                     <Style.Triggers>
@@ -124,6 +134,8 @@
                 </Style>
             </ContentControl.Style>
         </ContentControl>
+
+        
 
     </Grid>
 </Window>

@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
+using System.Collections.ObjectModel;
+using StudentDataAnalysator.Models;
 
 namespace StudentDataAnalysator
 {
@@ -25,10 +27,11 @@ namespace StudentDataAnalysator
         private RelayCommand _searchFileCommand;
         private string _selectedPath;
         private ExcelFileLoaderService _excelDataReader;
-
+        private ObservableCollection<Student> studentsList;
 
         public MainViewModel()
         {
+            StudentsList = new ObservableCollection<Student>();
         }
 
         public RelayCommand OpenFrequencyViewCommand
@@ -111,6 +114,8 @@ namespace StudentDataAnalysator
                 {
                     _excelDataReader = new ExcelFileLoaderService(SelectedPath);
                     OnPropertyChanged("SelectedPath");
+
+                    StudentsList = _excelDataReader.GetStudentsListFromExcelTable();
                 }
                 else
                 {
@@ -120,7 +125,18 @@ namespace StudentDataAnalysator
             }
         }
 
-
+        public ObservableCollection<Student> StudentsList
+        {
+            get 
+            { 
+                return studentsList;
+            }
+            set
+            {
+                studentsList = value;
+                OnPropertyChanged("StudentsList");
+            }
+        }
 
         public int SwitchView
         {
@@ -143,6 +159,5 @@ namespace StudentDataAnalysator
             dialog.ShowDialog();
             SelectedPath = dialog.FileName;
         }
-
     }
 }

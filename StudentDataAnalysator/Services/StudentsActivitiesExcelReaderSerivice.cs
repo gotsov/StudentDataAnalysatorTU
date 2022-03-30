@@ -9,5 +9,10 @@ namespace StudentDataAnalysator.Services
 {
     public class StudentsActivitiesExcelReaderSerivice : IExcelFileReaderService
     {
+
+        public StudentsActivitiesExcelReaderSerivice(string path, int sheet)
+        {
+ 
+        }
     }
 }
