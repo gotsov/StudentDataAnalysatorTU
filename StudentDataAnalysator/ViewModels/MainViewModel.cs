@@ -28,10 +28,12 @@ namespace StudentDataAnalysator
         private string _selectedPath;
         private ExcelFileLoaderService _excelDataReader;
         private ObservableCollection<Student> studentsList;
+        private ObservableCollection<Log> logsList;
 
         public MainViewModel()
         {
             StudentsList = new ObservableCollection<Student>();
+            LogsList = new ObservableCollection<Log>();
         }
 
         public RelayCommand OpenFrequencyViewCommand
@@ -115,7 +117,8 @@ namespace StudentDataAnalysator
                     _excelDataReader = new ExcelFileLoaderService(SelectedPath);
                     OnPropertyChanged("SelectedPath");
 
-                    StudentsList = _excelDataReader.GetStudentsListFromExcelTable();
+                    //StudentsList = _excelDataReader.StudentListFromExcelTable();
+                    LogsList = _excelDataReader.LogListFromExcelTable();
                 }
                 else
                 {
@@ -135,6 +138,19 @@ namespace StudentDataAnalysator
             {
                 studentsList = value;
                 OnPropertyChanged("StudentsList");
+            }
+        }
+
+        public ObservableCollection<Log> LogsList
+        {
+            get
+            {
+                return logsList;
+            }
+            set
+            {
+                logsList = value;
+                OnPropertyChanged("LogsList");
             }
         }
 

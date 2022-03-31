@@ -15,6 +15,7 @@ namespace StudentDataAnalysator.Services
     {
         private string path;
         public ObservableCollection<Student> StudentsList { get; set; }
+        public ObservableCollection<Log> LogsList { get; set; }
 
         public ExcelFileLoaderService()
         {
@@ -25,8 +26,10 @@ namespace StudentDataAnalysator.Services
             this.path = path;
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             StudentsList = new ObservableCollection<Student>();
+            LogsList = new ObservableCollection<Log>();
 
-            ReadExcel();
+
+            ReadExcel2();
         }
 
         public bool IsFileExcel(string path)
@@ -55,9 +58,37 @@ namespace StudentDataAnalysator.Services
             }
         }
 
-        public ObservableCollection<Student> GetStudentsListFromExcelTable()
+        private void ReadExcel2()
+        {
+            var stream = File.Open(path, FileMode.Open, FileAccess.Read);
+            var reader = ExcelReaderFactory.CreateReader(stream);
+            int n = 0;
+            while (reader.Read())
+            {
+                if (n!=0)
+                {
+                    LogsList.Add(new Log(
+                        DateTime.Parse(reader.GetString(0)),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetString(3),
+                        reader.GetString(4)
+                       ));
+                }
+                n++;
+            }
+            foreach(var log in LogsList)
+                Console.WriteLine(log.ToString);
+        }
+
+        public ObservableCollection<Student> StudentListFromExcelTable()
         {
             return StudentsList;
+        }
+
+        public ObservableCollection<Log> LogListFromExcelTable()
+        {
+            return LogsList;
         }
     }
 }
