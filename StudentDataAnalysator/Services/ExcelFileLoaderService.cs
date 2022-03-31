@@ -14,22 +14,11 @@ namespace StudentDataAnalysator.Services
     public class ExcelFileLoaderService
     {
         private string path;
-        public ObservableCollection<Student> StudentsList { get; set; }
-        public ObservableCollection<Log> LogsList { get; set; }
 
-        public ExcelFileLoaderService()
-        {
-
-        }
         public ExcelFileLoaderService(string path)
         {
             this.path = path;
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            StudentsList = new ObservableCollection<Student>();
-            LogsList = new ObservableCollection<Log>();
 
-
-            ReadExcel2();
         }
 
         public bool IsFileExcel(string path)
@@ -44,51 +33,39 @@ namespace StudentDataAnalysator.Services
             return false;
         }
 
-        private void ReadExcel()
+        public int GetTableType()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
             var stream = File.Open(path, FileMode.Open, FileAccess.Read);
             var reader = ExcelReaderFactory.CreateReader(stream);
 
-            while (reader.Read())
+            if (reader.FieldCount > 2)
             {
-                if (reader.GetFieldType(1) != typeof(string) && reader.GetFieldType(1) != null)
-                {
-                    StudentsList.Add(new Student(reader.GetDouble(0), reader.GetDouble(1)));
-                }
+                stream.Close();
+                return 1;
             }
-        }
-
-        private void ReadExcel2()
-        {
-            var stream = File.Open(path, FileMode.Open, FileAccess.Read);
-            var reader = ExcelReaderFactory.CreateReader(stream);
-            int n = 0;
-            while (reader.Read())
+            else
             {
-                if (n!=0)
-                {
-                    LogsList.Add(new Log(
-                        DateTime.Parse(reader.GetString(0)),
-                        reader.GetString(1),
-                        reader.GetString(2),
-                        reader.GetString(3),
-                        reader.GetString(4)
-                       ));
-                }
-                n++;
+                stream.Close();
+                return 0;
             }
-            foreach(var log in LogsList)
-                Console.WriteLine(log.ToString);
         }
 
         public ObservableCollection<Student> StudentListFromExcelTable()
         {
-            return StudentsList;
+            StudentsResultsExcelReaderService service = new StudentsResultsExcelReaderService();
+            service.ReadExcel(path);
+
+            return service.StudentsList;
         }
 
         public ObservableCollection<Log> LogListFromExcelTable()
         {
-            return LogsList;
+            StudentsLogsExcelReaderSerivice service = new StudentsLogsExcelReaderSerivice();
+            service.ReadExcel(path);
+
+            return service.LogsList;
         }
     }
 }

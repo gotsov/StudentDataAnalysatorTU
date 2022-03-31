@@ -11,26 +11,32 @@ using System.Threading.Tasks;
 
 namespace StudentDataAnalysator.Services
 {
-    public class StudentsResultsExcelReaderService : IExcelFileReaderService
+    public class StudentsLogsExcelReaderSerivice : IExcelFileReaderService
     {
 
-        public ObservableCollection<Student> StudentsList { get; set; }
+        public ObservableCollection<Log> LogsList { get; set; }
         public void ReadExcel(string path)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            StudentsList = new ObservableCollection<Student>();
+            LogsList = new ObservableCollection<Log>();
 
             var stream = File.Open(path, FileMode.Open, FileAccess.Read);
             var reader = ExcelReaderFactory.CreateReader(stream);
-
+            int n = 0;
             while (reader.Read())
             {
-                if (reader.GetFieldType(1) != typeof(string) && reader.GetFieldType(1) != null)
+                if (n != 0)
                 {
-                    StudentsList.Add(new Student(reader.GetDouble(0), reader.GetDouble(1)));
+                    LogsList.Add(new Log(
+                        DateTime.Parse(reader.GetString(0)),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetString(3),
+                        reader.GetString(4)
+                       ));
                 }
+                n++;
             }
         }
-
     }
 }
