@@ -20,7 +20,7 @@ namespace StudentDataAnalysator
     {
         private int switchView;
         private int tableType;
-
+        private RelayCommand _openViewExcelViewCommand;
         private RelayCommand _openFrequencyViewCommand;
         private RelayCommand _openMeasursCentralTrendViewCommand;
         private RelayCommand _openDistractionMeasuresViewCommand;
@@ -36,6 +36,18 @@ namespace StudentDataAnalysator
             StudentsList = new ObservableCollection<Student>();
             LogsList = new ObservableCollection<Log>();
         }
+        public RelayCommand OpenViewExcelViewCommand
+        {
+            get
+            {
+                if (_openViewExcelViewCommand == null)
+                {
+                    _openViewExcelViewCommand = new RelayCommand(param => this.ChangeSwitchView(0),
+                        param => true);
+                }
+                return _openViewExcelViewCommand;
+            }
+        }
 
         public RelayCommand OpenFrequencyViewCommand
         {
@@ -43,7 +55,7 @@ namespace StudentDataAnalysator
             {
                 if (_openFrequencyViewCommand == null)
                 {
-                    _openFrequencyViewCommand = new RelayCommand(param => this.ChangeSwitchView(0),
+                    _openFrequencyViewCommand = new RelayCommand(param => this.ChangeSwitchView(1),
                         param => true);
                 }
                 return _openFrequencyViewCommand;
@@ -56,7 +68,7 @@ namespace StudentDataAnalysator
             {
                 if (_openMeasursCentralTrendViewCommand == null)
                 {
-                    _openMeasursCentralTrendViewCommand = new RelayCommand(param => this.ChangeSwitchView(1),
+                    _openMeasursCentralTrendViewCommand = new RelayCommand(param => this.ChangeSwitchView(2),
                         param => true);
                 }
                 return _openMeasursCentralTrendViewCommand;
@@ -69,7 +81,7 @@ namespace StudentDataAnalysator
             {
                 if (_openDistractionMeasuresViewCommand == null)
                 {
-                    _openDistractionMeasuresViewCommand = new RelayCommand(param => this.ChangeSwitchView(2),
+                    _openDistractionMeasuresViewCommand = new RelayCommand(param => this.ChangeSwitchView(3),
                         param => true);
                 }
                 return _openDistractionMeasuresViewCommand;
@@ -82,7 +94,7 @@ namespace StudentDataAnalysator
             {
                 if (_openCorrelationAnalysisViewViewCommand == null)
                 {
-                    _openCorrelationAnalysisViewViewCommand = new RelayCommand(param => this.ChangeSwitchView(3),
+                    _openCorrelationAnalysisViewViewCommand = new RelayCommand(param => this.ChangeSwitchView(4),
                         param => true);
                 }
                 return _openCorrelationAnalysisViewViewCommand;
@@ -131,7 +143,7 @@ namespace StudentDataAnalysator
                 }
                 else
                 {
-                    MessageBox.Show("Invalid file. File must be excel");
+                    MessageBox.Show("Invalid file. File must be .xls");
                 }
                 
             }

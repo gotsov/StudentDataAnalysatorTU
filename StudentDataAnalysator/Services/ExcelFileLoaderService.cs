@@ -29,8 +29,6 @@ namespace StudentDataAnalysator.Services
                 return true;
             else
                 return false;
-
-            return false;
         }
 
         public int GetTableType()
@@ -43,12 +41,12 @@ namespace StudentDataAnalysator.Services
             if (reader.FieldCount > 2)
             {
                 stream.Close();
-                return 1;
+                return 1; // Course Results
             }
             else
             {
                 stream.Close();
-                return 0;
+                return 0; // Activity Log
             }
         }
 
@@ -68,9 +66,5 @@ namespace StudentDataAnalysator.Services
             return service.LogsList;
         }
 
-        public ObservableCollection<Log> LogListFromExcelTable()
-        {
-            return LogsList;
-        }
     }
 }
