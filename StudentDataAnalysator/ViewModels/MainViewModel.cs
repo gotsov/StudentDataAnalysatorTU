@@ -19,6 +19,7 @@ namespace StudentDataAnalysator
     public class MainViewModel : BaseViewModel
     {
         private int switchView;
+        private int tableType;
 
         private RelayCommand _openFrequencyViewCommand;
         private RelayCommand _openMeasursCentralTrendViewCommand;
@@ -110,15 +111,23 @@ namespace StudentDataAnalysator
             {
                 _selectedPath = value;
 
-                _excelDataReader = new ExcelFileLoaderService();
+                _excelDataReader = new ExcelFileLoaderService(SelectedPath);
 
                 if (_excelDataReader.IsFileExcel(SelectedPath))
                 {
-                    _excelDataReader = new ExcelFileLoaderService(SelectedPath);
                     OnPropertyChanged("SelectedPath");
 
-                    //StudentsList = _excelDataReader.StudentListFromExcelTable();
-                    LogsList = _excelDataReader.LogListFromExcelTable();
+                    if(_excelDataReader.GetTableType() == 0)    //StudentsResults = 0, StudentsLogs = 1
+                    {
+                        TableType = 0;
+                        StudentsList = _excelDataReader.StudentListFromExcelTable();
+                    }
+                    else
+                    {
+                        TableType = 1;
+                        LogsList = _excelDataReader.LogListFromExcelTable();
+                    }
+
                 }
                 else
                 {
@@ -161,6 +170,16 @@ namespace StudentDataAnalysator
             { 
                 switchView = value;
                 OnPropertyChanged("SwitchView");
+            }
+        }
+
+        public int TableType
+        {
+            get { return tableType; }
+            set
+            {
+                tableType = value;
+                OnPropertyChanged("TableType");
             }
         }
 

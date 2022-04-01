@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace StudentDataAnalysator.Interfaces
 {
-    public class IExcelFileReaderService
+    public interface IExcelFileReaderService
     {
+        public void ReadExcel(string path);
     }
 }
