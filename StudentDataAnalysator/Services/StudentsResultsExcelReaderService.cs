@@ -30,8 +30,6 @@ namespace StudentDataAnalysator.Services
                     StudentsList.Add(new Student(reader.GetDouble(0), reader.GetDouble(1)));
                 }
             }
-
-            stream.Close();
         }
 
     }

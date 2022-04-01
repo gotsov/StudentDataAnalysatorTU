@@ -37,8 +37,6 @@ namespace StudentDataAnalysator.Services
                 }
                 n++;
             }
-
-            stream.Close();
         }
     }
 }
