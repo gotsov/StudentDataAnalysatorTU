@@ -31,7 +31,6 @@ namespace StudentDataAnalysator.Services
                 }
             }
             stream.Close();
-            //komentar nqkakuv kakvo stava
         }
 
     }
