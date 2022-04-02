@@ -68,9 +68,5 @@ namespace StudentDataAnalysator.Services
             return service.LogsList;
         }
 
-        public ObservableCollection<Log> LogListFromExcelTable()
-        {
-            return LogsList;
-        }
     }
 }
