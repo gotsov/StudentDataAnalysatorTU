@@ -13,7 +13,10 @@
         <vm:DistractionMeasuresViewModel />
     </UserControl.DataContext>
 
-        <Grid>
-            
+    <Grid>
+        <TextBlock Text="Мерки на разсейване"
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"
+                   FontSize="18"/>
     </Grid>
 </UserControl>

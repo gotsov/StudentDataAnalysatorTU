@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExcelDataReader;
 using Microsoft.Office.Interop.Excel;
 using StudentDataAnalysator.Models;
+using static StudentDataAnalysator.Enums.Enums;
 
 namespace StudentDataAnalysator.Services
 {
@@ -18,6 +20,7 @@ namespace StudentDataAnalysator.Services
         public ExcelFileLoaderService(string path)
         {
             this.path = path;
+
 
         }
 
@@ -43,12 +46,12 @@ namespace StudentDataAnalysator.Services
             if (reader.FieldCount > 2)
             {
                 stream.Close();
-                return 1;
+                return (int)TableTypeEnum.StudentsLogsTable;
             }
             else
             {
                 stream.Close();
-                return 0;
+                return (int)TableTypeEnum.StudentsResultTable;
             }
         }
 

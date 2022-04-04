@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows;
 using System.Collections.ObjectModel;
 using StudentDataAnalysator.Models;
+using static StudentDataAnalysator.Enums.Enums;
 
 namespace StudentDataAnalysator
 {
@@ -117,14 +118,14 @@ namespace StudentDataAnalysator
                 {
                     OnPropertyChanged("SelectedPath");
 
-                    if(_excelDataReader.GetTableType() == 0)    //StudentsResults = 0, StudentsLogs = 1
-                    {
-                        TableType = 0;
+                    if(_excelDataReader.GetTableType() == (int)TableTypeEnum.StudentsResultTable)
+                    { 
+                        TableType = (int)TableTypeEnum.StudentsResultTable;
                         StudentsList = _excelDataReader.StudentListFromExcelTable();
                     }
                     else
                     {
-                        TableType = 1;
+                        TableType = (int)TableTypeEnum.StudentsLogsTable;
                         LogsList = _excelDataReader.LogListFromExcelTable();
                     }
 

@@ -14,6 +14,9 @@
     </UserControl.DataContext>
     
     <Grid>
-            
+        <TextBlock Text="Коралационен анализ"
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"
+                   FontSize="18"/>
     </Grid>
 </UserControl>
