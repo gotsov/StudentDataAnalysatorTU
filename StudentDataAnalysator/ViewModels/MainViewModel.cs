@@ -14,13 +14,14 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using StudentDataAnalysator.Models;
 using static StudentDataAnalysator.Enums.Enums;
+using Prism.Events;
+using StudentDataAnalysator.Events;
 
 namespace StudentDataAnalysator
 {
     public class MainViewModel : BaseViewModel
     {
         private int switchView;
-        private int tableType;
         private RelayCommand _openViewExcelViewCommand;
         private RelayCommand _openFrequencyViewCommand;
         private RelayCommand _openMeasursCentralTrendViewCommand;
@@ -29,13 +30,9 @@ namespace StudentDataAnalysator
         private RelayCommand _searchFileCommand;
         private string _selectedPath;
         private ExcelFileLoaderService _excelDataReader;
-        private ObservableCollection<Student> studentsList;
-        private ObservableCollection<Log> logsList;
-
         public MainViewModel()
         {
-            StudentsList = new ObservableCollection<Student>();
-            LogsList = new ObservableCollection<Log>();
+            SingletonClass.TestEventAggregator.GetEvent<UpdateSelectedPathEvent>().Subscribe(ResetSelectedPath);
         }
         public RelayCommand OpenViewExcelViewCommand
         {
@@ -130,49 +127,13 @@ namespace StudentDataAnalysator
                 {
                     OnPropertyChanged("SelectedPath");
 
-                    if(_excelDataReader.GetTableType() == (int)TableTypeEnum.StudentsResultTable)
-                    { 
-                        TableType = (int)TableTypeEnum.StudentsResultTable;
-                        StudentsList = _excelDataReader.StudentListFromExcelTable();
-                    }
-                    else
-                    {
-                        TableType = (int)TableTypeEnum.StudentsLogsTable;
-                        LogsList = _excelDataReader.LogListFromExcelTable();
-                    }
-
+                    SingletonClass.TestEventAggregator.GetEvent<UpdateTableEvent>().Publish(SelectedPath);
                 }
                 else
                 {
                     MessageBox.Show("Invalid file. File must be .xls");
                 }
                 
-            }
-        }
-
-        public ObservableCollection<Student> StudentsList
-        {
-            get 
-            { 
-                return studentsList;
-            }
-            set
-            {
-                studentsList = value;
-                OnPropertyChanged("StudentsList");
-            }
-        }
-
-        public ObservableCollection<Log> LogsList
-        {
-            get
-            {
-                return logsList;
-            }
-            set
-            {
-                logsList = value;
-                OnPropertyChanged("LogsList");
             }
         }
 
@@ -186,15 +147,6 @@ namespace StudentDataAnalysator
             }
         }
 
-        public int TableType
-        {
-            get { return tableType; }
-            set
-            {
-                tableType = value;
-                OnPropertyChanged("TableType");
-            }
-        }
 
         public void ChangeSwitchView(int viewNum)
         {
@@ -205,7 +157,13 @@ namespace StudentDataAnalysator
         {
             var dialog = new OpenFileDialog();
             dialog.ShowDialog();
-            SelectedPath = dialog.FileName;
+            SelectedPath = dialog.FileName;        
+        }
+
+        public void ResetSelectedPath(string test)
+        {
+            if(SelectedPath != null)
+                SelectedPath = SelectedPath;
         }
     }
 }
