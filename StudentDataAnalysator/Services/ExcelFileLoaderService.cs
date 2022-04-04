@@ -20,8 +20,6 @@ namespace StudentDataAnalysator.Services
         public ExcelFileLoaderService(string path)
         {
             this.path = path;
-
-
         }
 
         public bool IsFileExcel(string path)
