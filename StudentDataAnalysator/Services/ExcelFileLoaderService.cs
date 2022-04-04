@@ -32,8 +32,6 @@ namespace StudentDataAnalysator.Services
                 return true;
             else
                 return false;
-
-            return false;
         }
 
         public int GetTableType()
@@ -70,5 +68,6 @@ namespace StudentDataAnalysator.Services
 
             return service.LogsList;
         }
+
     }
 }

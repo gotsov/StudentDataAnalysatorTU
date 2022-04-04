@@ -13,6 +13,10 @@
     </Window.DataContext>
     
     <Window.Resources>
+        <DataTemplate x:Key="ViewExcelViewTemplate" DataType="{x:Type local:MainViewModel}">
+            <controls:ViewExcelView />
+        </DataTemplate>
+
         <DataTemplate x:Key="FrequencyDistributionViewTemplate" DataType="{x:Type local:MainViewModel}">
             <controls:FrequencyDistributionView />
         </DataTemplate>
@@ -43,6 +47,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
         <Button Grid.Row="0"
@@ -66,6 +71,15 @@
 
         <Button Grid.Row="1"
                 Grid.Column="0"
+                Command="{Binding OpenViewExcelViewCommand}">
+        <TextBlock Text="Визуализация на файл" 
+                       TextWrapping="Wrap" 
+                       TextAlignment="Center"
+                       FontSize="16"
+                       />
+        </Button>
+        <Button Grid.Row="1"
+                Grid.Column="1"
                 Command="{Binding OpenFrequencyViewCommand}">
             <TextBlock Text="Честотно разпределение" 
                        TextWrapping="Wrap" 
@@ -75,7 +89,7 @@
         </Button>
 
         <Button Grid.Row="1"
-                Grid.Column="1"
+                Grid.Column="2"
                 Command="{Binding OpenMeasursCentralTrendViewCommand}">
             <TextBlock Text="Мерки на централната тенденция" 
                        TextWrapping="Wrap" 
@@ -84,7 +98,7 @@
         </Button>
 
         <Button Grid.Row="1"
-                Grid.Column="2"
+                Grid.Column="3"
                 Command="{Binding OpenDistractionMeasuresViewCommand}">
             <TextBlock Text="Мерки на разсейване" 
                        TextWrapping="Wrap" 
@@ -93,7 +107,7 @@
         </Button>
 
         <Button Grid.Row="1"
-                Grid.Column="3"
+                Grid.Column="4"
                 Command="{Binding OpenCorrelationAnalysisViewViewCommand}">
             <TextBlock Text="Корелационен анализ" 
                        TextWrapping="Wrap" 
@@ -101,44 +115,27 @@
                        FontSize="16"/>
         </Button>
 
-        <DataGrid 
-            Grid.Row="2"
-            Grid.ColumnSpan="2"
-            FontSize="20"
-            Margin="10,10,10,10">
-
-            <DataGrid.Style>
-                <Style TargetType="DataGrid">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding TableType}" Value="0">
-                            <Setter Property="ItemsSource" Value="{Binding StudentsList}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding TableType}" Value="1">
-                            <Setter Property="ItemsSource" Value="{Binding LogsList}" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.Style>
-        </DataGrid>
-
         <ContentControl Grid.Row="2"
-                        Grid.Column="2"
-                        Grid.ColumnSpan="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="5"
             Content="{Binding }">
             
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding SwitchView}" Value="0">
-                            <Setter Property="ContentTemplate" Value="{StaticResource FrequencyDistributionViewTemplate}" />
+                            <Setter Property="ContentTemplate" Value="{StaticResource ViewExcelViewTemplate}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding SwitchView}" Value="1">
-                            <Setter Property="ContentTemplate" Value="{StaticResource MeasuresCentralTrendViewTemplate}" />
+                            <Setter Property="ContentTemplate" Value="{StaticResource FrequencyDistributionViewTemplate}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding SwitchView}" Value="2">
-                            <Setter Property="ContentTemplate" Value="{StaticResource DistractionMeasuresViewTemplate}" />
+                            <Setter Property="ContentTemplate" Value="{StaticResource MeasuresCentralTrendViewTemplate}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding SwitchView}" Value="3">
+                            <Setter Property="ContentTemplate" Value="{StaticResource DistractionMeasuresViewTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding SwitchView}" Value="4">
                             <Setter Property="ContentTemplate" Value="{StaticResource CorrelationAnalysisViewTemplate}" />
                         </DataTrigger>
                     </Style.Triggers>

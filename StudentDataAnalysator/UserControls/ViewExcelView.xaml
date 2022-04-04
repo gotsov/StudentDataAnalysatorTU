@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="StudentDataAnalysator.UserControls.ViewExcelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StudentDataAnalysator.UserControls"
+             xmlns:vm="clr-namespace:StudentDataAnalysator.ViewModels"
+             xmlns:test="clr-namespace:StudentDataAnalysator"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="Black">
+
+    <UserControl.DataContext>
+        <test:MainViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <DataGrid 
+            FontSize="20"
+            Margin="10,10,10,10" >
+
+            <DataGrid.Style>
+            <Style TargetType="DataGrid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding TableType}" Value="0">
+                        <Setter Property="ItemsSource" Value="{Binding StudentsList}" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding TableType}" Value="1">
+                        <Setter Property="ItemsSource" Value="{Binding LogsList}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </DataGrid.Style>
+        </DataGrid>
+
+    </Grid>
+</UserControl>
