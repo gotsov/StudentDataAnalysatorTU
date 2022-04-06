@@ -28,10 +28,5 @@ namespace StudentDataAnalysator
         }
 
         public static IEventAggregator TestEventAggregator { get; set; }
-
-        public void AddMethod()
-        {
-            Console.WriteLine("Add Method");
-        }
     }
 }
