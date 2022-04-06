@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StudentDataAnalysator.Events
 {
-    public class UpdateTableEvent : PubSubEvent<String>
+    public class GetStudentsResultsListEvent : PubSubEvent<ObservableCollection<Student>>
     {
     }
 }

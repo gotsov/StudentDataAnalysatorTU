@@ -30,10 +30,48 @@ namespace StudentDataAnalysator
         private RelayCommand _searchFileCommand;
         private string _selectedPath;
         private ExcelFileLoaderService _excelDataReader;
+
+        private ObservableCollection<Student> studentsList;
+        private ObservableCollection<Log> logsList;
+
         public MainViewModel()
         {
-            SingletonClass.TestEventAggregator.GetEvent<UpdateSelectedPathEvent>().Subscribe(ResetSelectedPath);
+            StudentsList = new ObservableCollection<Student>();
+            LogsList = new ObservableCollection<Log>();
+
+            SingletonClass.TestEventAggregator.GetEvent<UpdateListsEvent>().Subscribe(SendList);
         }
+
+        public ObservableCollection<Student> StudentsList
+        {
+            get
+            {
+                return studentsList;
+            }
+            set
+            {
+                studentsList = value;
+                OnPropertyChanged("StudentsList");
+
+                SingletonClass.TestEventAggregator.GetEvent<GetStudentsResultsListEvent>().Publish(StudentsList);
+            }
+        }
+
+        public ObservableCollection<Log> LogsList
+        {
+            get
+            {
+                return logsList;
+            }
+            set
+            {
+                logsList = value;
+                OnPropertyChanged("LogsList");
+
+                SingletonClass.TestEventAggregator.GetEvent<GetLogsListEvent>().Publish(LogsList);
+            }
+        }
+
         public RelayCommand OpenViewExcelViewCommand
         {
             get
@@ -127,7 +165,7 @@ namespace StudentDataAnalysator
                 {
                     OnPropertyChanged("SelectedPath");
 
-                    SingletonClass.TestEventAggregator.GetEvent<UpdateTableEvent>().Publish(SelectedPath);
+                    GetExcelData(SelectedPath);
                 }
                 else
                 {
@@ -160,10 +198,31 @@ namespace StudentDataAnalysator
             SelectedPath = dialog.FileName;        
         }
 
-        public void ResetSelectedPath(string test)
+        public void SendList(string test)
         {
             if(SelectedPath != null)
-                SelectedPath = SelectedPath;
+            {
+                ExcelFileLoaderService _excelDataReader = new ExcelFileLoaderService(SelectedPath);
+
+                if (_excelDataReader.GetTableType() == (int)TableTypeEnum.StudentsResultTable)
+                    StudentsList = StudentsList;
+                else
+                    LogsList = LogsList;
+            }
+        }
+
+        private void GetExcelData(string path)
+        {
+            ExcelFileLoaderService _excelDataReader = new ExcelFileLoaderService(path);
+
+            if (_excelDataReader.GetTableType() == (int)TableTypeEnum.StudentsResultTable)
+            {
+                StudentsList = _excelDataReader.StudentListFromExcelTable();
+            }
+            else
+            {
+                LogsList = _excelDataReader.LogListFromExcelTable();
+            }
         }
     }
 }
