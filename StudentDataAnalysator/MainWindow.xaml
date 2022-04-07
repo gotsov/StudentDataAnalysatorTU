@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StudentDataAnalysator"
         xmlns:controls="clr-namespace:StudentDataAnalysator.UserControls"
+        xmlns:converters="clr-namespace:StudentDataAnalysator.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" MinHeight="450">
 
     <Window.DataContext>
         <local:MainViewModel />
@@ -32,6 +33,8 @@
         <DataTemplate x:Key="CorrelationAnalysisViewTemplate" DataType="{x:Type local:MainViewModel}">
             <controls:CorrelationAnalysisView />
         </DataTemplate>
+
+        <converters:BoolConverter x:Key="BoolConverter"/>
     </Window.Resources>
 
 
@@ -90,7 +93,8 @@
 
         <Button Grid.Row="1"
                 Grid.Column="2"
-                Command="{Binding OpenMeasursCentralTrendViewCommand}">
+                Command="{Binding OpenMeasursCentralTrendViewCommand}"
+                IsEnabled="{Binding Path=IsButtonEnabled, Converter={StaticResource BoolConverter}}">
             <TextBlock Text="Мерки на централната тенденция" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"

@@ -13,14 +13,19 @@ namespace StudentDataAnalysator.ViewModels
 {
     public class ViewExcelViewModel : BaseViewModel
     {
-        private ObservableCollection<Student> studentsList = new ObservableCollection<Student>();
-        private ObservableCollection<Log> logsList = new ObservableCollection<Log>();
+        private ObservableCollection<Student> studentsList;
+        private ObservableCollection<Log> logsList;
         private int tableType;
 
         public ViewExcelViewModel()
         {
-            SingletonClass.TestEventAggregator.GetEvent<UpdateTableEvent>().Subscribe(LoadTable);
-            SingletonClass.TestEventAggregator.GetEvent<UpdateSelectedPathEvent>().Publish("");
+            StudentsList = new ObservableCollection<Student>();
+            LogsList = new ObservableCollection<Log>();
+
+            SingletonClass.TestEventAggregator.GetEvent<GetStudentsResultsListEvent>().Subscribe(SetStudentsList);
+            SingletonClass.TestEventAggregator.GetEvent<GetLogsListEvent>().Subscribe(SetLogsList);
+
+            SingletonClass.TestEventAggregator.GetEvent<UpdateListsEvent>().Publish("");
         }
 
         public ObservableCollection<Student> StudentsList
@@ -59,20 +64,26 @@ namespace StudentDataAnalysator.ViewModels
             }
         }
 
-        private void LoadTable(string path)
+        private void GetTableType(string path)
         {
             ExcelFileLoaderService _excelDataReader = new ExcelFileLoaderService(path);
 
             if (_excelDataReader.GetTableType() == (int)TableTypeEnum.StudentsResultTable)
-            {
                 TableType = (int)TableTypeEnum.StudentsResultTable;
-                StudentsList = _excelDataReader.StudentListFromExcelTable();
-            }
             else
-            {
                 TableType = (int)TableTypeEnum.StudentsLogsTable;
-                LogsList = _excelDataReader.LogListFromExcelTable();
-            }
+        }
+
+        private void SetStudentsList(ObservableCollection<Student> newStudentsList)
+        {
+            TableType = (int)TableTypeEnum.StudentsResultTable;
+            StudentsList = newStudentsList;
+        }
+
+        private void SetLogsList(ObservableCollection<Log> newLogsList)
+        {
+            TableType = (int)TableTypeEnum.StudentsLogsTable;
+            LogsList = newLogsList;
         }
 
     }

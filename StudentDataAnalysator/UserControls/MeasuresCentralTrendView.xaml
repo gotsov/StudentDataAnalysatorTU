@@ -14,11 +14,25 @@
     </UserControl.DataContext>
     
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <TextBlock Text="Мерки на централната тенденция"
+        <TextBlock Text="{Binding Test}"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center"
-                   FontSize="18"/>
+                   FontSize="18"
+                   Margin="0,20,0,20"/>
+
+        <DataGrid Grid.Row="1"
+                  Width="500"
+                  Height="100"
+                  FontSize="24"
+                  ColumnWidth="*"
+                  ItemsSource="{Binding TendencyResult, UpdateSourceTrigger=PropertyChanged}">
+            
+        </DataGrid>
 
     </Grid>
 </UserControl>
