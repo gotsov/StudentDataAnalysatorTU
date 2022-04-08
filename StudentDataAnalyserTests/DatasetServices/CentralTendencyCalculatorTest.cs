@@ -156,8 +156,5 @@ namespace StudentDataAnalyserTests
             Assert.AreEqual(19.83, Math.Round(actualAverage, 2));
 
         }
-
-
-
     }
 }

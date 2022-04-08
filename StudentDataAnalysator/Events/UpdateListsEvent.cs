@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace StudentDataAnalysator.Events
 {
-    public class UpdateListsEvent : PubSubEvent<String>
+
+    public class UpdateListsEvent : PubSubEvent<string>
     {
     }
 }

@@ -16,7 +16,7 @@ namespace StudentDataAnalysator.DatasetServices
             return median;
         }
 
-        public static List<Double> GetMode(List<Double> list)
+        public static List<Double> GetMode(List<double> list)
         {
             int maxcount = list.GroupBy(i => i).Max(grp => grp.Count());
             List<double> modeList = list.GroupBy(i => i).Where(grp => grp.Count() == maxcount).Select(grp => grp.Key).ToList();

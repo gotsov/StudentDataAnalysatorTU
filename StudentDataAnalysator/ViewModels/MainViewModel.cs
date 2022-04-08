@@ -30,6 +30,7 @@ namespace StudentDataAnalysator
         private RelayCommand _searchFileCommand;
         private string _selectedPath;
         private ExcelFileLoaderService _excelDataReader;
+        private bool _isButtonEnabled;
 
         private ObservableCollection<Student> studentsList;
         private ObservableCollection<Log> logsList;
@@ -40,6 +41,7 @@ namespace StudentDataAnalysator
             LogsList = new ObservableCollection<Log>();
 
             SingletonClass.TestEventAggregator.GetEvent<UpdateListsEvent>().Subscribe(SendList);
+            IsButtonEnabled = false;
         }
 
         public ObservableCollection<Student> StudentsList
@@ -71,7 +73,6 @@ namespace StudentDataAnalysator
                 SingletonClass.TestEventAggregator.GetEvent<GetLogsListEvent>().Publish(LogsList);
             }
         }
-
         public RelayCommand OpenViewExcelViewCommand
         {
             get
@@ -148,11 +149,11 @@ namespace StudentDataAnalysator
                 return _searchFileCommand;
             }
         }
-        
+
         public string SelectedPath
         {
             get
-            {   
+            {
                 return _selectedPath;
             }
             set
@@ -171,20 +172,29 @@ namespace StudentDataAnalysator
                 {
                     MessageBox.Show("Invalid file. File must be .xls");
                 }
-                
+
             }
         }
 
         public int SwitchView
         {
             get { return switchView; }
-            set 
-            { 
+            set
+            {
                 switchView = value;
                 OnPropertyChanged("SwitchView");
             }
         }
 
+        public bool IsButtonEnabled
+        {
+            get { return _isButtonEnabled; }
+            set
+            {
+                _isButtonEnabled = value;
+                OnPropertyChanged("IsButtonEnabled");
+            }
+        }
 
         public void ChangeSwitchView(int viewNum)
         {
@@ -195,12 +205,12 @@ namespace StudentDataAnalysator
         {
             var dialog = new OpenFileDialog();
             dialog.ShowDialog();
-            SelectedPath = dialog.FileName;        
+            SelectedPath = dialog.FileName;
         }
 
         public void SendList(string test)
         {
-            if(SelectedPath != null)
+            if (SelectedPath != null)
             {
                 ExcelFileLoaderService _excelDataReader = new ExcelFileLoaderService(SelectedPath);
 
@@ -215,14 +225,23 @@ namespace StudentDataAnalysator
         {
             ExcelFileLoaderService _excelDataReader = new ExcelFileLoaderService(path);
 
-            if (_excelDataReader.GetTableType() == (int)TableTypeEnum.StudentsResultTable)
+            if (IsTableStudentsResults())
             {
                 StudentsList = _excelDataReader.StudentListFromExcelTable();
+                IsButtonEnabled = true;
             }
             else
             {
                 LogsList = _excelDataReader.LogListFromExcelTable();
+                IsButtonEnabled=false;
             }
+        }
+
+
+        private bool IsTableStudentsResults()
+        {
+            return _excelDataReader.GetTableType() == (int)TableTypeEnum.StudentsResultTable;
+        
         }
     }
 }
