@@ -73,7 +73,6 @@ namespace StudentDataAnalysator
                 SingletonClass.TestEventAggregator.GetEvent<GetLogsListEvent>().Publish(LogsList);
             }
         }
-
         public RelayCommand OpenViewExcelViewCommand
         {
             get
@@ -238,9 +237,11 @@ namespace StudentDataAnalysator
             }
         }
 
+
         private bool IsTableStudentsResults()
         {
             return _excelDataReader.GetTableType() == (int)TableTypeEnum.StudentsResultTable;
+        
         }
     }
 }

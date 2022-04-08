@@ -15,10 +15,10 @@
     <Grid>
         <DataGrid 
             FontSize="20"
-            Margin="10,10,10,10" >
+            Margin="10,10,10,10">
 
             <DataGrid.Style>
-            <Style TargetType="DataGrid">
+                <Style TargetType="DataGrid">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding TableType}" Value="0">
                             <Setter Property="ItemsSource" Value="{Binding StudentsList}" />
