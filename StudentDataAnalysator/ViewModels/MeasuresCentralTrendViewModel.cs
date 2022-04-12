@@ -24,8 +24,6 @@ namespace StudentDataAnalysator.ViewModels
 
             GetAllStudentsResults();
             CalculateCentralTendencyResult(results);
-
-            Test = "в конструктора";
         }
 
         public ObservableCollection<Student> StudentsList
@@ -92,21 +90,7 @@ namespace StudentDataAnalysator.ViewModels
 
         private void SetStudentsList(ObservableCollection<Student> newList)
         {
-            Test = "В handler";
             StudentsList = newList;
-        }
-
-        //ignore this pls
-        private string test;
-
-        public string Test
-        {
-            get { return test; }
-            set 
-            {
-                test = value;
-                OnPropertyChanged("Test");
-            }
         }
     }
 }

@@ -29,6 +29,8 @@ namespace StudentDataAnalysator
         private RelayCommand _openCorrelationAnalysisViewViewCommand;
         private RelayCommand _searchFileCommand;
         private string _selectedPath;
+        private string _selectedPathStudentsResults;
+        private string _selectedPathLogs;
         private ExcelFileLoaderService _excelDataReader;
         private bool _isButtonEnabled;
 
@@ -42,6 +44,9 @@ namespace StudentDataAnalysator
 
             SingletonClass.TestEventAggregator.GetEvent<UpdateListsEvent>().Subscribe(SendList);
             IsButtonEnabled = false;
+
+            SelectedPathStudentsResults = "Избери файл с резултати на студентите (StudentsResults)";
+            SelectedPathLogs = "Избери файл с дейности на студентите (Logs_Course / StudentActivities)";
         }
 
         public ObservableCollection<Student> StudentsList
@@ -173,6 +178,27 @@ namespace StudentDataAnalysator
                     MessageBox.Show("Invalid file. File must be .xls");
                 }
 
+                SwitchView = 0;
+            }
+        }
+
+        public string SelectedPathStudentsResults
+        {
+            get { return _selectedPathStudentsResults; }
+            set
+            {
+                _selectedPathStudentsResults = value;
+                OnPropertyChanged("SelectedPathStudentsResults");
+            }
+        }
+
+        public string SelectedPathLogs
+        {
+            get { return _selectedPathLogs; }
+            set
+            {
+                _selectedPathLogs = value;
+                OnPropertyChanged("SelectedPathLogs");
             }
         }
 
@@ -212,11 +238,7 @@ namespace StudentDataAnalysator
         {
             if (SelectedPath != null)
             {
-                ExcelFileLoaderService _excelDataReader = new ExcelFileLoaderService(SelectedPath);
-
-                if (_excelDataReader.GetTableType() == (int)TableTypeEnum.StudentsResultTable)
                     StudentsList = StudentsList;
-                else
                     LogsList = LogsList;
             }
         }
@@ -228,11 +250,13 @@ namespace StudentDataAnalysator
             if (IsTableStudentsResults())
             {
                 StudentsList = _excelDataReader.StudentListFromExcelTable();
+                SelectedPathStudentsResults = SelectedPath;
                 IsButtonEnabled = true;
             }
             else
             {
                 LogsList = _excelDataReader.LogListFromExcelTable();
+                SelectedPathLogs = SelectedPath;
                 IsButtonEnabled=false;
             }
         }
