@@ -34,6 +34,7 @@ namespace StudentDataAnalysator
         private bool _isStudentsPathSelected;
         private bool _isLogsPathSelected;
         private bool _areBothPathsSelected;
+
         private ExcelFileLoaderService _excelDataReader;
 
         private ObservableCollection<Student> studentsList;
@@ -80,6 +81,7 @@ namespace StudentDataAnalysator
                 SingletonClass.TestEventAggregator.GetEvent<GetLogsListEvent>().Publish(LogsList);
             }
         }
+        
         public RelayCommand OpenViewExcelViewCommand
         {
             get
@@ -180,6 +182,27 @@ namespace StudentDataAnalysator
                     MessageBox.Show("Invalid file. File must be .xls", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
+                SwitchView = 0;
+            }
+        }
+
+        public string SelectedPathStudentsResults
+        {
+            get { return _selectedPathStudentsResults; }
+            set
+            {
+                _selectedPathStudentsResults = value;
+                OnPropertyChanged("SelectedPathStudentsResults");
+            }
+        }
+
+        public string SelectedPathLogs
+        {
+            get { return _selectedPathLogs; }
+            set
+            {
+                _selectedPathLogs = value;
+                OnPropertyChanged("SelectedPathLogs");
             }
         }
 
@@ -244,11 +267,7 @@ namespace StudentDataAnalysator
         {
             if (SelectedPath != null)
             {
-                ExcelFileLoaderService _excelDataReader = new ExcelFileLoaderService(SelectedPath);
-
-                if (_excelDataReader.GetTableType() == (int)TableTypeEnum.StudentsResultTable)
                     StudentsList = StudentsList;
-                else
                     LogsList = LogsList;
             }
         }

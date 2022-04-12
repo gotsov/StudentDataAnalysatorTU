@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="{Binding Test}"
+        <TextBlock Text="Мерки на централната тенденция"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center"
                    FontSize="18"

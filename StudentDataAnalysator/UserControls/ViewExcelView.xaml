@@ -6,14 +6,43 @@
              xmlns:local="clr-namespace:StudentDataAnalysator.UserControls"
              xmlns:vm="clr-namespace:StudentDataAnalysator.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             Background="Pink">
+             d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.DataContext>
         <vm:ViewExcelViewModel/>
     </UserControl.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Text="Таблица за визуализиране:"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Right"
+                   FontSize="20">
+            
+        </TextBlock>
+        
+        <ComboBox Grid.Row="0"
+                  Grid.Column="1"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Left"
+                  Width="200"
+                  Margin="10,10,10,10"
+                  ItemsSource="{Binding TableTypeNames}"
+                  SelectedItem="{Binding SelectedTableTypeToShow}">
+        </ComboBox>
+        
         <DataGrid 
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
             FontSize="20"
             Margin="10,10,10,10"
             IsEnabled="False">

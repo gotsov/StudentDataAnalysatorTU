@@ -163,18 +163,5 @@ namespace StudentDataAnalysator.ViewModels
         {
             StudentsList = newList;
         }
-
-        //ignore this pls
-        private string test;
-
-        public string Test
-        {
-            get { return test; }
-            set 
-            {
-                test = value;
-                OnPropertyChanged("Test");
-            }
-        }
     }
 }

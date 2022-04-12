@@ -62,9 +62,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*"/>
-            <RowDefinition Height="6*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -73,6 +75,7 @@
         </Grid.ColumnDefinitions>
 
         <Button Grid.Row="0"
+                Grid.RowSpan="2"
                 Grid.Column="0"
                 Command="{Binding SearchFileCommand}"
                 Margin="5,5,5,5">
@@ -84,7 +87,7 @@
 
         <TextBlock Grid.Row="0"
                    Grid.Column ="1"
-                   Grid.ColumnSpan="3"
+                   Grid.ColumnSpan="5"
                    TextAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="20"
@@ -113,7 +116,8 @@
                        FontSize="16"
                        />
         </Button>
-        <Button Grid.Row="1"
+
+        <Button Grid.Row="2"
                 Grid.Column="1"
                 Command="{Binding OpenViewExcelViewCommand}"
                 Margin="5,5,5,5">
@@ -131,10 +135,11 @@
             <TextBlock Text="Честотно разпределение (Прегледани лекции)" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
-                       FontSize="16"/>
+                       FontSize="16"
+                       />
         </Button>
 
-        <Button Grid.Row="1"
+        <Button Grid.Row="2"
                 Grid.Column="3"
                 Command="{Binding OpenMeasursCentralTrendViewCommand}"
                 IsEnabled="{Binding Path=IsButtonEnabled, Converter={StaticResource BoolConverter}}"
@@ -145,7 +150,7 @@
                        FontSize="16"/>
         </Button>
 
-        <Button Grid.Row="1"
+        <Button Grid.Row="2"
                 Grid.Column="4"
                 Command="{Binding OpenDistractionMeasuresViewCommand}"
                 Margin="5,5,5,5">
@@ -165,9 +170,9 @@
                        FontSize="16"/>
         </Button>
 
-        <ContentControl Grid.Row="2"
+        <ContentControl Grid.Row="3"
                         Grid.Column="0"
-                        Grid.ColumnSpan="5"
+                        Grid.ColumnSpan="6"
             Content="{Binding }">
 
             <ContentControl.Style>
