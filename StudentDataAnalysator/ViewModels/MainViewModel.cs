@@ -31,8 +31,11 @@ namespace StudentDataAnalysator
         private string _selectedPath;
         private string _selectedPathStudentsResults;
         private string _selectedPathLogs;
+        private bool _isStudentsPathSelected;
+        private bool _isLogsPathSelected;
+        private bool _areBothPathsSelected;
+
         private ExcelFileLoaderService _excelDataReader;
-        private bool _isButtonEnabled;
 
         private ObservableCollection<Student> studentsList;
         private ObservableCollection<Log> logsList;
@@ -43,8 +46,8 @@ namespace StudentDataAnalysator
             LogsList = new ObservableCollection<Log>();
 
             SingletonClass.TestEventAggregator.GetEvent<UpdateListsEvent>().Subscribe(SendList);
-            IsButtonEnabled = false;
 
+            AreBothPathsSelected = false;
             SelectedPathStudentsResults = "Избери файл с резултати на студентите (StudentsResults)";
             SelectedPathLogs = "Избери файл с дейности на студентите (Logs_Course / StudentActivities)";
         }
@@ -78,6 +81,7 @@ namespace StudentDataAnalysator
                 SingletonClass.TestEventAggregator.GetEvent<GetLogsListEvent>().Publish(LogsList);
             }
         }
+        
         public RelayCommand OpenViewExcelViewCommand
         {
             get
@@ -175,7 +179,7 @@ namespace StudentDataAnalysator
                 }
                 else
                 {
-                    MessageBox.Show("Invalid file. File must be .xls");
+                    MessageBox.Show("Invalid file. File must be .xls", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
 
                 SwitchView = 0;
@@ -202,6 +206,41 @@ namespace StudentDataAnalysator
             }
         }
 
+        public bool AreBothPathsSelected
+        {
+            get { return _areBothPathsSelected; }
+            set
+            {
+                _areBothPathsSelected = value;
+                OnPropertyChanged("AreBothPathsSelected");
+            }
+        }
+        
+
+        public bool IsStudentsPathSelected
+        {
+            get { return _isStudentsPathSelected; }
+            set
+            {
+                _isStudentsPathSelected = value;
+                OnPropertyChanged("IsStudentsPathSelected");
+
+                AreBothPathsSelected = IsStudentsPathSelected && IsLogsPathSelected ? true : false;
+            }
+        }
+
+        public bool IsLogsPathSelected
+        {
+            get { return _isLogsPathSelected; }
+            set
+            {
+                _isLogsPathSelected = value;
+                OnPropertyChanged("IsLogsPathSelected");
+
+                AreBothPathsSelected = IsStudentsPathSelected && IsLogsPathSelected ? true : false;
+            }
+        }
+
         public int SwitchView
         {
             get { return switchView; }
@@ -209,16 +248,6 @@ namespace StudentDataAnalysator
             {
                 switchView = value;
                 OnPropertyChanged("SwitchView");
-            }
-        }
-
-        public bool IsButtonEnabled
-        {
-            get { return _isButtonEnabled; }
-            set
-            {
-                _isButtonEnabled = value;
-                OnPropertyChanged("IsButtonEnabled");
             }
         }
 
@@ -265,7 +294,6 @@ namespace StudentDataAnalysator
         private bool IsTableStudentsResults()
         {
             return _excelDataReader.GetTableType() == (int)TableTypeEnum.StudentsResultTable;
-        
         }
     }
 }

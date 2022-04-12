@@ -14,16 +14,20 @@ namespace StudentDataAnalysator.ViewModels
     {
         private ObservableCollection<CentralTendencyResult> tendencyResult;
         private ObservableCollection<Student> studentsList;
+        private ObservableCollection<Log> logsList;
         private List<double> results = new List<double>();
+        private Dictionary<double, int> studentCoursesViewedDict;
+
         public MeasuresCentralTrendViewModel()
         {
             TendencyResult = new ObservableCollection<CentralTendencyResult>();
+            StudentCoursesViewedDict = new Dictionary<double, int>();
 
             SingletonClass.TestEventAggregator.GetEvent<GetStudentsResultsListEvent>().Subscribe(SetStudentsList);
+            SingletonClass.TestEventAggregator.GetEvent<GetLogsListEvent>().Subscribe(SetLogsList);
             SingletonClass.TestEventAggregator.GetEvent<UpdateListsEvent>().Publish("");
 
-            GetAllStudentsResults();
-            CalculateCentralTendencyResult(results);
+            GetCoursesViewByUsers();
         }
 
         public ObservableCollection<Student> StudentsList
@@ -39,6 +43,19 @@ namespace StudentDataAnalysator.ViewModels
             }
         }
 
+        public ObservableCollection<Log> LogsList
+        {
+            get
+            {
+                return logsList;
+            }
+            set
+            {
+                logsList = value;
+                OnPropertyChanged("LogsList");
+            }
+        }
+
         public ObservableCollection<CentralTendencyResult> TendencyResult
         {
             get { return tendencyResult; }
@@ -49,10 +66,42 @@ namespace StudentDataAnalysator.ViewModels
             }
         }
 
+        public Dictionary<double, int> StudentCoursesViewedDict
+        {
+            get { return studentCoursesViewedDict; }
+            set
+            {
+                studentCoursesViewedDict = value;
+                OnPropertyChanged("StudentCoursesViewedDict");
+            }
+        }
+
+        private void GetAllStudentsResults()
+        {
+            foreach(Student student in StudentsList)
+            {
+                results.Add(student.Result);
+            }
+        }
+
+        private void SetStudentsList(ObservableCollection<Student> newList)
+        {
+            StudentsList = newList;
+        }
+
+        private void GetCoursesViewByUsers()
+        {
+            FillDictionaryWithCoursesViewedData();
+
+            List<double> coursesViewedByUser = SetListToCalculateTendencies();
+
+            CalculateCentralTendencyResult(coursesViewedByUser);
+        }
+
         private void CalculateCentralTendencyResult(List<double> results)
         {
             double median = CentralTendencyCalculator.GetMedian(results);
-            double average = CentralTendencyCalculator.GetAverage(results);
+            double average = Math.Round(CentralTendencyCalculator.GetAverage(results), 2);
 
             string modesToString = MergeModesToOneString(results);
 
@@ -80,15 +129,37 @@ namespace StudentDataAnalysator.ViewModels
             return modesToString;
         }
 
-        private void GetAllStudentsResults()
+        private void FillDictionaryWithCoursesViewedData()
         {
-            foreach(Student student in StudentsList)
+            int count;
+            foreach (var student in StudentsList)
             {
-                results.Add(student.Result);
+                count = 0;
+                foreach (var log in LogsList)
+                {
+                    if (log.Description.Contains(student.Id.ToString()) && log.EventName == "Course viewed")
+                    {
+                        count++;
+                        StudentCoursesViewedDict[student.Id] = count;
+                    }
+                }
             }
         }
 
-        private void SetStudentsList(ObservableCollection<Student> newList)
+        private List<double> SetListToCalculateTendencies()
+        {
+            List<double> result = new List<double>();
+
+            foreach (int coursesViewed in StudentCoursesViewedDict.Values)
+            {
+                result.Add(coursesViewed);
+            }
+            
+            return result;
+        }
+                    
+
+    private void SetLogsList(ObservableCollection<Log> newLogsList)
         {
             StudentsList = newList;
         }

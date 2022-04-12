@@ -7,12 +7,13 @@
         xmlns:controls="clr-namespace:StudentDataAnalysator.UserControls"
         xmlns:converters="clr-namespace:StudentDataAnalysator.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1125" MinHeight="450">
+        Title="MainWindow" Height="700" Width="1125" MinHeight="450"
+        Background="#badc58">
 
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
-    
+
     <Window.Resources>
         <DataTemplate x:Key="ViewExcelViewTemplate" DataType="{x:Type local:MainViewModel}">
             <controls:ViewExcelView />
@@ -34,6 +35,24 @@
             <controls:CorrelationAnalysisView />
         </DataTemplate>
 
+        <Style x:Key="IsStudentsPathSelectedTrigger" TargetType="TextBlock">
+            <Setter Property = "Background" Value = "#ff7979" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsStudentsPathSelected}" Value="True">
+                    <Setter Property="TextBlock.Background" Value="#6ab04c"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="IsLogsPathSelectedTrigger" TargetType="TextBlock">
+            <Setter Property = "Background" Value = "#ff7979" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsLogsPathSelected}" Value="True">
+                    <Setter Property="TextBlock.Background" Value="#6ab04c"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
         <converters:BoolConverter x:Key="BoolConverter"/>
     </Window.Resources>
 
@@ -54,7 +73,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Button Grid.Row="0"
                 Grid.RowSpan="2"
                 Grid.Column="0"
@@ -63,13 +82,14 @@
             <TextBlock Text="Отвори Файл" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
-                       FontSize="16"/>
+                       FontSize="20"/>
         </Button>
 
         <TextBlock Grid.Row="0"
                    Grid.Column ="1"
                    Grid.ColumnSpan="5"
                    TextAlignment="Center"
+                   VerticalAlignment="Center"
                    FontSize="20"
                    TextWrapping="Wrap"
                    VerticalAlignment="Center"
@@ -154,7 +174,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="6"
             Content="{Binding }">
-            
+
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
                     <Style.Triggers>
@@ -177,8 +197,6 @@
                 </Style>
             </ContentControl.Style>
         </ContentControl>
-
-        
 
     </Grid>
 </Window>

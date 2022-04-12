@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:StudentDataAnalysator.UserControls"
              xmlns:vm="clr-namespace:StudentDataAnalysator.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             Background="Bisque">
+             d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.DataContext>
         <vm:MeasuresCentralTrendViewModel/>
@@ -30,7 +29,8 @@
                   Height="100"
                   FontSize="24"
                   ColumnWidth="*"
-                  ItemsSource="{Binding TendencyResult, UpdateSourceTrigger=PropertyChanged}">
+                  ItemsSource="{Binding TendencyResult, UpdateSourceTrigger=PropertyChanged}"
+                  IsEnabled="False">
             
         </DataGrid>
 
