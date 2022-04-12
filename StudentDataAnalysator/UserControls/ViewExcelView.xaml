@@ -15,7 +15,8 @@
     <Grid>
         <DataGrid 
             FontSize="20"
-            Margin="10,10,10,10">
+            Margin="10,10,10,10"
+            IsEnabled="False">
 
             <DataGrid.Style>
                 <Style TargetType="DataGrid">
