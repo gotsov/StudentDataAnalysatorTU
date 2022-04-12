@@ -7,7 +7,7 @@
         xmlns:controls="clr-namespace:StudentDataAnalysator.UserControls"
         xmlns:converters="clr-namespace:StudentDataAnalysator.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" MinHeight="450">
+        Title="MainWindow" Height="700" Width="1125" MinHeight="450">
 
     <Window.DataContext>
         <local:MainViewModel />
@@ -43,9 +43,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="*"/>
-            <RowDefinition Height="6*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -54,8 +56,10 @@
         </Grid.ColumnDefinitions>
         
         <Button Grid.Row="0"
+                Grid.RowSpan="2"
                 Grid.Column="0"
-                Command="{Binding SearchFileCommand}">
+                Command="{Binding SearchFileCommand}"
+                Margin="5,5,5,5">
             <TextBlock Text="Отвори Файл" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
@@ -64,64 +68,91 @@
 
         <TextBlock Grid.Row="0"
                    Grid.Column ="1"
-                   Grid.ColumnSpan="3"
+                   Grid.ColumnSpan="5"
                    TextAlignment="Center"
                    FontSize="20"
                    TextWrapping="Wrap"
                    VerticalAlignment="Center"
-                Text="{Binding SelectedPath}">
+                   Text="{Binding SelectedPathStudentsResults}">
         </TextBlock>
 
-        <Button Grid.Row="1"
+        <TextBlock Grid.Row="1"
+                   Grid.Column ="1"
+                   Grid.ColumnSpan="5"
+                   TextAlignment="Center"
+                   FontSize="20"
+                   TextWrapping="Wrap"
+                   VerticalAlignment="Center"
+                Text="{Binding SelectedPathLogs}">
+        </TextBlock>
+
+        <Button Grid.Row="2"
                 Grid.Column="0"
-                Command="{Binding OpenViewExcelViewCommand}">
+                Command="{Binding OpenViewExcelViewCommand}"
+                Margin="5,5,5,5">
         <TextBlock Text="Визуализация на файл" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
                        FontSize="16"
                        />
         </Button>
-        <Button Grid.Row="1"
+
+        <Button Grid.Row="2"
                 Grid.Column="1"
-                Command="{Binding OpenFrequencyViewCommand}">
-            <TextBlock Text="Честотно разпределение" 
+                Command="{Binding OpenViewExcelViewCommand}"
+                Margin="5,5,5,5">
+            <TextBlock Text="Обобщена информация" 
+                       TextWrapping="Wrap" 
+                       TextAlignment="Center"
+                       FontSize="16"
+                       />
+        </Button>
+        
+        <Button Grid.Row="2"
+                Grid.Column="2"
+                Command="{Binding OpenFrequencyViewCommand}"
+                Margin="5,5,5,5">
+            <TextBlock Text="Честотно разпределение (Прегледани лекции)" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
                        FontSize="16"
                        />
         </Button>
 
-        <Button Grid.Row="1"
-                Grid.Column="2"
-                Command="{Binding OpenMeasursCentralTrendViewCommand}"
-                IsEnabled="{Binding Path=IsButtonEnabled, Converter={StaticResource BoolConverter}}">
-            <TextBlock Text="Мерки на централната тенденция" 
-                       TextWrapping="Wrap" 
-                       TextAlignment="Center"
-                       FontSize="16"/>
-        </Button>
-
-        <Button Grid.Row="1"
+        <Button Grid.Row="2"
                 Grid.Column="3"
-                Command="{Binding OpenDistractionMeasuresViewCommand}">
-            <TextBlock Text="Мерки на разсейване" 
+                Command="{Binding OpenMeasursCentralTrendViewCommand}"
+                IsEnabled="{Binding Path=IsButtonEnabled, Converter={StaticResource BoolConverter}}"
+                Margin="5,5,5,5">
+            <TextBlock Text="Мерки на централната тенденция (Прегледани лекции)" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
                        FontSize="16"/>
         </Button>
 
-        <Button Grid.Row="1"
+        <Button Grid.Row="2"
                 Grid.Column="4"
-                Command="{Binding OpenCorrelationAnalysisViewViewCommand}">
-            <TextBlock Text="Корелационен анализ" 
+                Command="{Binding OpenDistractionMeasuresViewCommand}"
+                Margin="5,5,5,5">
+            <TextBlock Text="Мерки на разсейване (Прегледани лекции)" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
                        FontSize="16"/>
         </Button>
 
-        <ContentControl Grid.Row="2"
+        <Button Grid.Row="2"
+                Grid.Column="5"
+                Command="{Binding OpenCorrelationAnalysisViewViewCommand}"
+                Margin="5,5,5,5">
+            <TextBlock Text="Корелационен анализ (Брой редактирани Wiki)" 
+                       TextWrapping="Wrap" 
+                       TextAlignment="Center"
+                       FontSize="16"/>
+        </Button>
+
+        <ContentControl Grid.Row="3"
                         Grid.Column="0"
-                        Grid.ColumnSpan="5"
+                        Grid.ColumnSpan="6"
             Content="{Binding }">
             
             <ContentControl.Style>
