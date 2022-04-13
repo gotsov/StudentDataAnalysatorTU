@@ -78,7 +78,8 @@
                 Grid.RowSpan="2"
                 Grid.Column="0"
                 Command="{Binding SearchFileCommand}"
-                Margin="5,5,5,5">
+                Margin="5,5,5,5"
+                Background="#dff9fb">
             <TextBlock Text="Отвори Файл" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
@@ -92,25 +93,29 @@
                    VerticalAlignment="Center"
                    FontSize="20"
                    TextWrapping="Wrap"
-                   VerticalAlignment="Center"
-                   Text="{Binding SelectedPathStudentsResults}">
+                   Text="{Binding SelectedPathStudentsResults}"
+                   Style="{DynamicResource IsStudentsPathSelectedTrigger}"
+                   Margin="0,5,5,0">
         </TextBlock>
 
         <TextBlock Grid.Row="1"
                    Grid.Column ="1"
                    Grid.ColumnSpan="5"
                    TextAlignment="Center"
+                   VerticalAlignment="Center"
                    FontSize="20"
                    TextWrapping="Wrap"
-                   VerticalAlignment="Center"
-                Text="{Binding SelectedPathLogs}">
+                   Text="{Binding SelectedPathLogs}"
+                   Style="{DynamicResource IsLogsPathSelectedTrigger}"
+                   Margin="0,0,5,0">
         </TextBlock>
 
         <Button Grid.Row="2"
                 Grid.Column="0"
                 Command="{Binding OpenViewExcelViewCommand}"
-                Margin="5,5,5,5">
-        <TextBlock Text="Визуализация на файл" 
+                Margin="5,5,5,5"
+                Background="#dff9fb">
+            <TextBlock Text="Визуализация на файл" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
                        FontSize="16"
@@ -120,18 +125,21 @@
         <Button Grid.Row="2"
                 Grid.Column="1"
                 Command="{Binding OpenViewExcelViewCommand}"
-                Margin="5,5,5,5">
+                Margin="5,5,5,5"
+                Background="#dff9fb">
             <TextBlock Text="Обобщена информация" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
                        FontSize="16"
                        />
         </Button>
-        
+
         <Button Grid.Row="2"
                 Grid.Column="2"
                 Command="{Binding OpenFrequencyViewCommand}"
-                Margin="5,5,5,5">
+                IsEnabled="{Binding Path=AreBothPathsSelected, Converter={StaticResource BoolConverter}}"
+                Margin="5,5,5,5"
+                Background="#dff9fb">
             <TextBlock Text="Честотно разпределение (Прегледани лекции)" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
@@ -142,8 +150,9 @@
         <Button Grid.Row="2"
                 Grid.Column="3"
                 Command="{Binding OpenMeasursCentralTrendViewCommand}"
-                IsEnabled="{Binding Path=IsButtonEnabled, Converter={StaticResource BoolConverter}}"
-                Margin="5,5,5,5">
+                IsEnabled="{Binding Path=AreBothPathsSelected, Converter={StaticResource BoolConverter}}"
+                Margin="5,5,5,5"
+                Background="#dff9fb">
             <TextBlock Text="Мерки на централната тенденция (Прегледани лекции)" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
@@ -153,7 +162,9 @@
         <Button Grid.Row="2"
                 Grid.Column="4"
                 Command="{Binding OpenDistractionMeasuresViewCommand}"
-                Margin="5,5,5,5">
+                IsEnabled="{Binding Path=AreBothPathsSelected, Converter={StaticResource BoolConverter}}"
+                Margin="5,5,5,5"
+                Background="#dff9fb">
             <TextBlock Text="Мерки на разсейване (Прегледани лекции)" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"
@@ -163,7 +174,9 @@
         <Button Grid.Row="2"
                 Grid.Column="5"
                 Command="{Binding OpenCorrelationAnalysisViewViewCommand}"
-                Margin="5,5,5,5">
+                IsEnabled="{Binding Path=AreBothPathsSelected, Converter={StaticResource BoolConverter}}"
+                Margin="5,5,5,5"
+                Background="#dff9fb">
             <TextBlock Text="Корелационен анализ (Брой редактирани Wiki)" 
                        TextWrapping="Wrap" 
                        TextAlignment="Center"

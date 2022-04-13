@@ -59,7 +59,7 @@ namespace StudentDataAnalysator.ViewModels
         public ObservableCollection<CentralTendencyResult> TendencyResult
         {
             get { return tendencyResult; }
-            set 
+            set
             {
                 tendencyResult = value;
                 OnPropertyChanged("TendencyResult");
@@ -78,7 +78,7 @@ namespace StudentDataAnalysator.ViewModels
 
         private void GetAllStudentsResults()
         {
-            foreach(Student student in StudentsList)
+            foreach (Student student in StudentsList)
             {
                 results.Add(student.Result);
             }
@@ -154,14 +154,14 @@ namespace StudentDataAnalysator.ViewModels
             {
                 result.Add(coursesViewed);
             }
-            
+
             return result;
         }
-                    
 
-    private void SetLogsList(ObservableCollection<Log> newLogsList)
+
+        private void SetLogsList(ObservableCollection<Log> newLogsList)
         {
-            StudentsList = newList;
+            LogsList = newLogsList;
         }
     }
 }
