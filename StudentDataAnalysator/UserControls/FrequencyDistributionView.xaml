@@ -11,20 +11,28 @@
     <UserControl.DataContext>
         <vm:FrequencyDistributionViewModel />
     </UserControl.DataContext>
-    
-    <Grid ShowGridLines="False">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Честотно разпределение"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Честотно разпределение на прегледани лекции"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center"
-                   FontSize="18"/>
+                   FontSize="18"
+                   Margin="0,20,0,20"/>
+
+        <DataGrid Grid.Row="1"
+                  Width="550"
+                  Height="375"
+                  FontSize="24"
+                  ColumnWidth="*"
+                  ItemsSource="{Binding FrequencyResult, UpdateSourceTrigger=PropertyChanged}"
+                  IsEnabled="True">
+
+        </DataGrid>
+
     </Grid>
 </UserControl>

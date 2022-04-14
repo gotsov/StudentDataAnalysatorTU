@@ -137,7 +137,7 @@
         <Button Grid.Row="2"
                 Grid.Column="2"
                 Command="{Binding OpenFrequencyViewCommand}"
-                IsEnabled="{Binding Path=AreBothPathsSelected, Converter={StaticResource BoolConverter}}"
+                IsEnabled="{Binding Path=IsLogsPathSelected, Converter={StaticResource BoolConverter}}"
                 Margin="5,5,5,5"
                 Background="#dff9fb">
             <TextBlock Text="Честотно разпределение (Прегледани лекции)" 

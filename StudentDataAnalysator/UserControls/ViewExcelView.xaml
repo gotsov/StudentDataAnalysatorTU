@@ -45,7 +45,7 @@
             Grid.ColumnSpan="2"
             FontSize="20"
             Margin="10,10,10,10"
-            IsEnabled="False">
+            IsEnabled="True">
 
             <DataGrid.Style>
                 <Style TargetType="DataGrid">
