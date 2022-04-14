@@ -68,6 +68,13 @@ namespace StudentDataAnalysator.ViewModels
                 OnPropertyChanged("FrequencyViewedCoursesDict");
             }
         }
+        private void SetFrequencyOfViewedCourses()
+        {
+            ExtractAllStudentsFromLogs();
+            FillDictionaryWithCoursesViewedData();
+            FillFrequencyOfViewedCourses();
+            CalculateFrequencyDistributionResult();
+        }
         private void ExtractAllStudentsFromLogs()
         {
             double studentId;
@@ -116,7 +123,6 @@ namespace StudentDataAnalysator.ViewModels
             }
             FrequencyViewedCoursesDict = new SortedDictionary<int, int>(UnsortedFrequencies);
         }
-
         private void CalculateFrequencyDistributionResult()
         {
             int absoluteFrequency;
@@ -134,14 +140,6 @@ namespace StudentDataAnalysator.ViewModels
                 Math.Round(totalPercentage, 1).ToString()+"%")
                 );
         }
-        private void SetFrequencyOfViewedCourses()
-        {
-            ExtractAllStudentsFromLogs();
-            FillDictionaryWithCoursesViewedData();
-            FillFrequencyOfViewedCourses();
-            CalculateFrequencyDistributionResult();
-        }
-
         private void SetLogsList(ObservableCollection<Log> newLogsList)
         {
             LogsList = newLogsList;
