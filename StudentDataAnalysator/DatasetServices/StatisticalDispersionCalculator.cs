@@ -20,13 +20,11 @@ namespace StudentDataAnalysator.DatasetServices
         {
             double averageCountOfViewedCourses;
             averageCountOfViewedCourses = CoursesViewedByEachStudent.Average();
-            Console.WriteLine(averageCountOfViewedCourses);
             double sumOfSquares = 0.0;
             foreach (int num in CoursesViewedByEachStudent)
             {
                 sumOfSquares += Math.Pow((num - averageCountOfViewedCourses), 2.0);
             }
-            Console.WriteLine(sumOfSquares);
             return sumOfSquares / (double)(CoursesViewedByEachStudent.Count - 1);
         }
         public static double CalculateStandartDeviation(List<int> CoursesViewedByEachStudent)
