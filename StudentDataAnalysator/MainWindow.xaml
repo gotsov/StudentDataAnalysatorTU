@@ -162,7 +162,7 @@
         <Button Grid.Row="2"
                 Grid.Column="4"
                 Command="{Binding OpenDistractionMeasuresViewCommand}"
-                IsEnabled="{Binding Path=AreBothPathsSelected, Converter={StaticResource BoolConverter}}"
+                IsEnabled="{Binding Path=IsLogsPathSelected, Converter={StaticResource BoolConverter}}"
                 Margin="5,5,5,5"
                 Background="#dff9fb">
             <TextBlock Text="Мерки на разсейване (Прегледани лекции)" 
