@@ -34,7 +34,6 @@ namespace StudentDataAnalysator
         private bool _isStudentsPathSelected;
         private bool _isLogsPathSelected;
         private bool _areBothPathsSelected;
-
         private ExcelFileLoaderService _excelDataReader;
 
         private ObservableCollection<Student> studentsList;
@@ -81,7 +80,6 @@ namespace StudentDataAnalysator
                 SingletonClass.TestEventAggregator.GetEvent<GetLogsListEvent>().Publish(LogsList);
             }
         }
-        
         public RelayCommand OpenViewExcelViewCommand
         {
             get
@@ -215,7 +213,7 @@ namespace StudentDataAnalysator
                 OnPropertyChanged("AreBothPathsSelected");
             }
         }
-        
+
 
         public bool IsStudentsPathSelected
         {
@@ -267,8 +265,8 @@ namespace StudentDataAnalysator
         {
             if (SelectedPath != null)
             {
-                    StudentsList = StudentsList;
-                    LogsList = LogsList;
+                StudentsList = StudentsList;
+                LogsList = LogsList;
             }
         }
 
@@ -280,13 +278,13 @@ namespace StudentDataAnalysator
             {
                 StudentsList = _excelDataReader.StudentListFromExcelTable();
                 SelectedPathStudentsResults = SelectedPath;
-                IsButtonEnabled = true;
+                IsStudentsPathSelected = true;
             }
             else
             {
                 LogsList = _excelDataReader.LogListFromExcelTable();
                 SelectedPathLogs = SelectedPath;
-                IsButtonEnabled=false;
+                IsLogsPathSelected = true;
             }
         }
 
