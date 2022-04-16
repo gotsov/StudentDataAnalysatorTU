@@ -13,9 +13,26 @@
     </UserControl.DataContext>
 
     <Grid>
-        <TextBlock Text="Мерки на разсейване"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Мерки за разсейване на прегледани лекции"
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center"
-                   FontSize="18"/>
+                   FontSize="18"
+                   Margin="0,20,0,20"/>
+
+        <DataGrid Grid.Row="1"
+                  Width="425"
+                  Height="80"
+                  FontSize="24"
+                  ColumnWidth="*"
+                  ItemsSource="{Binding DispersionResult, UpdateSourceTrigger=PropertyChanged}"
+                  IsEnabled="True">
+
+        </DataGrid>
+
     </Grid>
 </UserControl>
